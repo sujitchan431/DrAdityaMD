@@ -71,22 +71,21 @@ function randomImage() {
   return `https://images.unsplash.com/${id}?w=1200&q=80`;
 }
 
-function callClaudeAPI(prompt) {
+function callDeepSeekAPI(prompt) {
   return new Promise((resolve, reject) => {
     const body = JSON.stringify({
-      model: "claude-opus-4-5",
+      model: "deepseek-chat",
       max_tokens: 4096,
       messages: [{ role: "user", content: prompt }],
     });
 
     const options = {
-      hostname: "api.anthropic.com",
-      path: "/v1/messages",
+      hostname: "api.deepseek.com",
+      path: "/v1/chat/completions",
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "x-api-key": process.env.ANTHROPIC_API_KEY,
-        "anthropic-version": "2023-06-01",
+        "Authorization": `Bearer ${process.env.DEEPSEEK_API_KEY}`,
         "Content-Length": Buffer.byteLength(body),
       },
     };
@@ -98,7 +97,7 @@ function callClaudeAPI(prompt) {
         try {
           const parsed = JSON.parse(data);
           if (parsed.error) reject(new Error(parsed.error.message));
-          else resolve(parsed.content[0].text);
+          else resolve(parsed.choices[0].message.content);
         } catch (e) {
           reject(e);
         }
@@ -159,7 +158,7 @@ faq:
 
 [blog body here]`;
 
-  const mdxContent = await callClaudeAPI(prompt);
+  const mdxContent = await callDeepSeekAPI(prompt);
 
   // Validate output starts with frontmatter
   if (!mdxContent.trim().startsWith("---")) {

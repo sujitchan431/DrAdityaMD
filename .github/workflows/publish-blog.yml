@@ -25,7 +25,7 @@ jobs:
 
       - name: Generate blog post via Claude API
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
         run: node .github/scripts/generate-blog.mjs
 
       - name: Commit and push new blog post
