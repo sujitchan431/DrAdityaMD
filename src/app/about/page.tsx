@@ -68,7 +68,7 @@ export default function AboutPage() {
                   src="/images/dr-aditya-consulting.jpg"
                   alt={`${siteConfig.name} consulting a patient`}
                   fill
-                  className="object-cover object-top"
+                  className="object-cover object-center"
                   sizes="320px"
                 />
               </div>
