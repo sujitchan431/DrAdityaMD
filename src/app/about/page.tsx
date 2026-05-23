@@ -55,11 +55,21 @@ export default function AboutPage() {
             <div className="sticky top-24">
               <div className="relative mx-auto h-64 w-64 overflow-hidden rounded-2xl border-4 border-white shadow-lg sm:h-80 sm:w-80">
                 <Image
-                  src="/images/dr-aditya-davhale.svg"
+                  src="/images/dr-aditya-professional.jpg"
                   alt={siteConfig.name}
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 256px, 320px"
+                />
+              </div>
+
+              <div className="mt-4 relative h-48 overflow-hidden rounded-xl shadow-md">
+                <Image
+                  src="/images/dr-aditya-consulting.jpg"
+                  alt={`${siteConfig.name} consulting a patient`}
+                  fill
+                  className="object-cover object-top"
+                  sizes="320px"
                 />
               </div>
 

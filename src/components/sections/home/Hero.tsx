@@ -62,7 +62,7 @@ export function Hero() {
           >
             <div className="absolute inset-0 flex items-center justify-center bg-primary-100">
               <Image
-                src="/images/dr-aditya-davhale.svg"
+                src="/images/dr-aditya-davhale.jpg"
                 alt={siteConfig.name}
                 fill
                 className="object-cover"

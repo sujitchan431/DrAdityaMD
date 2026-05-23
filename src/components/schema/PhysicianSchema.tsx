@@ -5,7 +5,7 @@ export function PhysicianSchema() {
     "@context": "https://schema.org",
     "@type": "Physician",
     name: siteConfig.fullName,
-    image: `${siteConfig.url}/images/dr-aditya-davhale.svg`,
+    image: `${siteConfig.url}/images/dr-aditya-davhale.jpg`,
     description: siteConfig.fullBio,
     medicalSpecialty: [
       "Internal Medicine",

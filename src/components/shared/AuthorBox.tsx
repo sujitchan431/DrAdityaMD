@@ -7,7 +7,7 @@ export function AuthorBox() {
     <div className="my-12 rounded-xl border border-gray-200 bg-medical-50 p-6 flex flex-col sm:flex-row gap-4 items-start">
       <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-full bg-primary-100">
         <Image
-          src="/images/dr-aditya-davhale.svg"
+          src="/images/dr-aditya-davhale.jpg"
           alt={siteConfig.name}
           fill
           className="object-cover"
