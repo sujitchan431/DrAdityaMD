@@ -1,0 +1,41 @@
+name: Auto-publish SEO Blog Post
+
+on:
+  schedule:
+    # Monday and Friday at 11:00 AM UTC = 4:30 PM IST
+    - cron: "0 11 * * 1,5"
+  workflow_dispatch: # allow manual trigger
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Generate blog post via Claude API
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: node .github/scripts/generate-blog.mjs
+
+      - name: Commit and push new blog post
+        run: |
+          git config user.name "Dr. Aditya Davhale Blog Bot"
+          git config user.email "dr.adityadavhale@gmail.com"
+          git add src/content/blog/
+          if git diff --cached --quiet; then
+            echo "No new post generated."
+          else
+            git commit -m "feat(blog): auto-publish new SEO article [skip ci]"
+            git push origin master
+          fi
