@@ -64,12 +64,12 @@ His approach combines compassionate consultation, evidence-based medicine, preve
   ],
 
   social: {
-    linkedin: "https://linkedin.com/",
-    facebook: "https://facebook.com/",
-    twitter: "https://twitter.com/",
+    linkedin: "https://linkedin.com/" // ⚠️ Replace with doctor profile,
+    facebook: "https://facebook.com/" // ⚠️ Replace with practice page URL,
+    twitter: "https://twitter.com/" // ⚠️ Replace with practice profile,
     youtube: "https://youtube.com/",
     practo: "https://practo.com/",
-    whatsapp: "https://wa.me/91XXXXXXXXXX",
+    whatsapp: "https://wa.me/91XXXXXXXXXX" // ⚠️ Replace with real number,
   },
 
   navLinks: [
