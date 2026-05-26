@@ -2,6 +2,9 @@
 
 @plugin "@tailwindcss/typography";
 
+/* Enable class-based dark mode for toggle */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme inline {
   --color-primary-50: #eff6ff;
   --color-primary-100: #dbeafe;
@@ -31,12 +34,33 @@
 :root {
   --background: #ffffff;
   --foreground: #0f172a;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  --card: #ffffff;
+  --card-hover: #f8fafc;
+}
+
+.dark {
+  --background: #0f172a;
+  --foreground: #f1f5f9;
+  --muted: #94a3b8;
+  --border: #1e293b;
+  --card: #1e293b;
+  --card-hover: #334155;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Theme transition for all elements */
+*, *::before, *::after {
+  transition-property: background-color, border-color, color;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
 }
 
 /* Custom prose overrides for blog content */
@@ -46,21 +70,25 @@ body {
 
 .prose h1 {
   font-weight: 800;
-  color: var(--color-medical-900);
+  color: var(--foreground);
 }
 
 .prose h2 {
   font-weight: 700;
-  color: var(--color-medical-900);
+  color: var(--foreground);
 }
 
 .prose h3 {
   font-weight: 600;
-  color: var(--color-medical-800);
+  color: var(--foreground);
+}
+
+.prose p, .prose li {
+  color: var(--foreground);
 }
 
 .prose a {
-  color: var(--color-primary-600);
+  color: var(--color-primary-400);
   text-decoration: underline;
 }
 
@@ -68,10 +96,14 @@ body {
   border-left-color: var(--color-primary-500);
 }
 
+.prose strong {
+  color: var(--foreground);
+}
+
 .heading-anchor {
   opacity: 0;
   margin-left: 0.5rem;
-  color: var(--color-primary-500);
+  color: var(--color-primary-400);
   text-decoration: none;
   font-size: 0.875em;
   transition: opacity 0.2s;
@@ -81,4 +113,17 @@ h1:hover .heading-anchor,
 h2:hover .heading-anchor,
 h3:hover .heading-anchor {
   opacity: 1;
+}
+
+/* Dark mode prose override for blog content */
+.dark .prose {
+  --tw-prose-body: var(--foreground);
+  --tw-prose-headings: var(--foreground);
+  --tw-prose-links: var(--color-primary-400);
+  --tw-prose-bold: var(--foreground);
+  --tw-prose-quotes: var(--foreground);
+  --tw-prose-code: var(--foreground);
+  --tw-prose-hr: var(--border);
+  --tw-prose-th-borders: var(--border);
+  --tw-prose-td-borders: var(--border);
 }
