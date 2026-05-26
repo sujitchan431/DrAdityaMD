@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { ThemeToggle } from "@/components/shared/ThemeToggle";
 import { siteConfig } from "@/content/site-config";
 
 export function MobileNav() {
@@ -13,7 +12,7 @@ export function MobileNav() {
     <div className="lg:hidden">
       <button
         onClick={() => setOpen(!open)}
-        className="flex h-10 w-10 items-center justify-center rounded-lg text-[var(--muted)] hover:bg-[var(--card-hover)]"
+        className="flex h-10 w-10 items-center justify-center rounded-lg text-gray-600 hover:bg-gray-100"
         aria-label={open ? "Close menu" : "Open menu"}
         aria-expanded={open}
       >
@@ -48,22 +47,19 @@ export function MobileNav() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: "100%" }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="fixed inset-y-0 right-0 z-50 w-72 bg-[var(--background)] shadow-2xl"
+            className="fixed inset-y-0 right-0 z-50 w-72 bg-white shadow-2xl"
           >
-            <div className="flex h-16 items-center justify-between border-b border-[var(--border)] px-4">
-              <span className="font-bold text-[var(--foreground)]">{siteConfig.name}</span>
-              <div className="flex items-center gap-1">
-                <ThemeToggle />
-                <button
-                  onClick={() => setOpen(false)}
-                  className="flex h-10 w-10 items-center justify-center rounded-lg text-[var(--muted)] hover:bg-[var(--card-hover)]"
-                  aria-label="Close menu"
-                >
-                  <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
+            <div className="flex h-16 items-center justify-between px-4 border-b border-gray-100">
+              <span className="font-bold text-medical-900">{siteConfig.name}</span>
+              <button
+                onClick={() => setOpen(false)}
+                className="h-10 w-10 flex items-center justify-center rounded-lg text-gray-600 hover:bg-gray-100"
+                aria-label="Close menu"
+              >
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
             </div>
             <nav className="flex flex-col p-4">
               {siteConfig.navLinks.map((link) => (
@@ -71,12 +67,12 @@ export function MobileNav() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className="rounded-lg px-4 py-3 text-sm font-medium text-[var(--muted)] transition-colors hover:bg-primary-50 hover:text-primary-600 dark:hover:bg-medical-700 dark:hover:text-primary-400"
+                  className="rounded-lg px-4 py-3 text-sm font-medium text-gray-700 transition-colors hover:bg-primary-50 hover:text-primary-600"
                 >
                   {link.label}
                 </Link>
               ))}
-              <hr className="my-3 border-[var(--border)]" />
+              <hr className="my-3" />
               <Link
                 href="/appointment"
                 onClick={() => setOpen(false)}
