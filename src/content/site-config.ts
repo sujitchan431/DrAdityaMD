@@ -1,5 +1,5 @@
 export const siteConfig = {
-  url: "https://www.dradityadavhale.com",
+  url: "https://www.dradityamd.com",
   name: "Dr. Aditya Davhale",
   fullName: "Dr. Aditya Davhale",
   credentials: "MBBS, MD, DNB (Internal Medicine)",

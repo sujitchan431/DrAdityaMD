@@ -10,7 +10,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.dradityadavhale.com"),
+  metadataBase: new URL("https://www.dradityamd.com"),
   title: {
     default:
       "Dr. Aditya Davhale | Consultant Physician & Internal Medicine Specialist | Navi Mumbai",

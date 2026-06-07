@@ -1,4 +1,4 @@
-export const SITE_URL = "https://www.dradityadavhale.com";
+export const SITE_URL = "https://www.dradityamd.com";
 
 export const ROUTES = {
   home: "/",
