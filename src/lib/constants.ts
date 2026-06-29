@@ -1,5 +1,12 @@
 export const SITE_URL = "https://www.dradityamd.com";
 
+export const WHATSAPP_NUMBER = "919960628111";
+
+/** Build a wa.me deep link with an optional pre-filled message. */
+export const whatsappLink = (
+  message = "Hello Dr. Aditya Davhale, I would like to book an appointment.",
+) => `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+
 export const ROUTES = {
   home: "/",
   about: "/about",

@@ -4,6 +4,7 @@ import { Container } from "@/components/layout/Container";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { CTASection } from "@/components/shared/CTASection";
 import { Timeline } from "@/components/shared/Timeline";
+import { HospitalAffiliations } from "@/components/sections/about/HospitalAffiliations";
 import { PhysicianSchema } from "@/components/schema/PhysicianSchema";
 import { siteConfig } from "@/content/site-config";
 
@@ -100,6 +101,39 @@ export default function AboutPage() {
                 </ul>
               </div>
             </div>
+          </div>
+        </div>
+
+        <div className="mt-16">
+          <HospitalAffiliations />
+        </div>
+
+        <div className="mt-16 grid gap-6 lg:grid-cols-2">
+          <div className="rounded-2xl border border-gray-100 bg-medical-50 p-6">
+            <h2 className="text-xl font-bold text-medical-900">Clinical Expertise</h2>
+            <ul className="mt-4 space-y-2">
+              {siteConfig.expertise.map((item) => (
+                <li key={item} className="flex items-start gap-2 text-sm text-gray-700">
+                  <svg className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary-500" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="rounded-2xl border border-gray-100 bg-medical-50 p-6">
+            <h2 className="text-xl font-bold text-medical-900">Procedural Skills</h2>
+            <ul className="mt-4 space-y-2">
+              {siteConfig.procedures.map((item) => (
+                <li key={item} className="flex items-start gap-2 text-sm text-gray-700">
+                  <svg className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary-500" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  {item}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 

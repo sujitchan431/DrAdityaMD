@@ -3,24 +3,88 @@ export const siteConfig = {
   name: "Dr. Aditya Davhale",
   fullName: "Dr. Aditya Davhale",
   credentials: "MBBS, MD, DNB (Internal Medicine)",
-  title: "Consultant General Physician & Internal Medicine Specialist",
+  title: "Assistant Professor & Consultant Physician — Internal Medicine",
   tagline: "Evidence-Based Care for Modern Living",
   shortBio:
-    "Dr. Aditya Davhale is a Consultant General Physician and Internal Medicine Specialist based in Navi Mumbai, known for his expertise in managing diabetes, hypertension, thyroid disorders, infectious diseases, and chronic lifestyle conditions.",
-  fullBio: `Dr. Aditya Davhale is a Consultant General Physician and Internal Medicine Specialist based in Navi Mumbai, known for his expertise in managing diabetes, hypertension, thyroid disorders, infectious diseases, and chronic lifestyle conditions.
+    "Dr. Aditya Davhale is an Assistant Professor and Consultant Physician (Internal Medicine) based in Navi Mumbai, with expertise in diabetes, hypertension, fever, infectious diseases, ICU & critical care, and chronic lifestyle conditions.",
+  fullBio: `Dr. Aditya Davhale is an Assistant Professor and Consultant Physician specialising in Internal Medicine, based in Navi Mumbai. He is known for evidence-based, patient-centred care across adult medicine, diabetes, hypertension, fever, infectious diseases, and ICU & critical care.
 
-He completed his MBBS from TNMC & BYL Nair Hospital and earned his MD in General Medicine from DY Patil Hospital, Navi Mumbai. He has also successfully completed DNB Internal Medicine.
+He completed his MBBS from TN Medical College & BYL Nair Hospital, Mumbai, and his MD in General Medicine from Dr. D. Y. Patil Medical College, Navi Mumbai. He has cleared his DNB (General Medicine) theory examinations and is further expanding his clinical depth through a Fellowship in 2D Echocardiography.
 
-Dr. Aditya currently serves as Assistant Professor in the Department of General Medicine at Dr. D. Y. Patil University School of Medicine, contributing actively to academics, research, and patient care.
+He currently serves as Assistant Professor in the Department of General Medicine at Dr. D. Y. Patil University School of Medicine and consults at leading hospitals across Navi Mumbai, including Apollo Hospitals (Belapur), Seawoods Hospital, Terna Specialty Hospital (Nerul), MPCT Hospital (Sanpada), and New Era Hospital (Vashi).
 
-His approach combines compassionate consultation, evidence-based medicine, preventive healthcare, and personalized treatment planning.`,
+His approach combines compassionate consultation, evidence-based medicine, preventive healthcare, and personalized treatment planning, supported by hands-on critical-care and procedural expertise.`,
+
+  // High-level specialties shown on the site (from clinical profile)
+  specialties: [
+    "Adult Medicine",
+    "Diabetes",
+    "Hypertension",
+    "Fever",
+    "ICU & Critical Care",
+  ],
+
+  // Hospital & academic appointments across Navi Mumbai
+  hospitals: [
+    {
+      role: "Assistant Professor",
+      name: "Dr. D. Y. Patil University School of Medicine",
+      location: "Nerul, Navi Mumbai",
+    },
+    {
+      role: "Clinical Associate",
+      name: "Apollo Hospitals",
+      location: "Belapur, Navi Mumbai",
+    },
+    {
+      role: "Consultant Physician",
+      name: "Seawoods Hospital",
+      location: "Nerul, Navi Mumbai",
+    },
+    {
+      role: "Visiting Consultant",
+      name: "Terna Specialty Hospital",
+      location: "Nerul, Navi Mumbai",
+    },
+    {
+      role: "Consultant Physician",
+      name: "MPCT Hospital",
+      location: "Sanpada, Navi Mumbai",
+    },
+    {
+      role: "Consultant Physician",
+      name: "New Era Hospital",
+      location: "Vashi, Navi Mumbai",
+    },
+  ],
+
+  // Core clinical expertise (resume)
+  expertise: [
+    "Diabetes, Hypertension & CKD",
+    "Stroke & Neurological Emergencies",
+    "Infectious Diseases Management",
+    "Gastrointestinal Disorders",
+    "Obesity & Lifestyle Medicine",
+    "ICU & Critical Care",
+  ],
+
+  // Procedural skills (resume)
+  procedures: [
+    "Central & Arterial Line Insertion",
+    "Lumbar Puncture",
+    "Ascitic & Pleural Taps",
+    "Ventilator Management",
+    "2D Echocardiography (Advanced Training)",
+  ],
 
   clinic: {
     name: "Seawoods Hospital",
     address: "Nerul Sector 48, Navi Mumbai, Maharashtra 400706",
     postalCode: "400706",
-    phone: "+91-XXXXX-XXXXX",
-    email: "dr.adityadavhale@gmail.com",
+    phone: "+91 99606 28111",
+    phoneRaw: "+919960628111",
+    whatsapp: "919960628111",
+    email: "dradityadavhale@gmail.com",
     hours: {
       days: "Monday to Sunday",
       time: "7:00 PM – 10:00 PM",
@@ -39,25 +103,37 @@ His approach combines compassionate consultation, evidence-based medicine, preve
     qualifications: ["MBBS", "MD (Internal Medicine)", "DNB (Internal Medicine)"],
     keyFacts: [
       "MBBS, MD, DNB (Internal Medicine)",
-      "6+ Years Experience",
-      "Assistant Professor at DY Patil University",
+      "Assistant Professor, DY Patil University",
+      "Consultant at 5+ Navi Mumbai Hospitals",
+      "ICU & Critical Care Expertise",
+      "2D Echocardiography Fellowship",
       "Evidence-Based Patient Care",
-      "Preventive Health Focus",
     ],
   },
 
   timeline: [
-    { year: "2017", title: "MBBS", description: "TNMC & BYL Nair Hospital, Mumbai" },
     {
-      year: "2021",
-      title: "MD General Medicine",
-      description: "DY Patil Hospital, Navi Mumbai",
+      year: "2014–2020",
+      title: "MBBS",
+      description: "TN Medical College & BYL Nair Hospital, Mumbai",
     },
-    { year: "2022", title: "DNB Internal Medicine", description: "National Board of Examinations" },
-    { year: "2021–2022", title: "Resident Doctor", description: "DY Patil Hospital, Navi Mumbai" },
-    { year: "2022–2023", title: "Senior Resident", description: "Department of General Medicine" },
     {
-      year: "2023–Present",
+      year: "2021–2024",
+      title: "MD General Medicine",
+      description: "Dr. D. Y. Patil Medical College, Navi Mumbai",
+    },
+    {
+      year: "2025",
+      title: "DNB General Medicine",
+      description: "National Board of Examinations",
+    },
+    {
+      year: "2025–2026",
+      title: "Senior Resident",
+      description: "Department of General Medicine",
+    },
+    {
+      year: "2026–Present",
       title: "Assistant Professor",
       description: "Dr. D. Y. Patil University School of Medicine",
     },
@@ -69,7 +145,7 @@ His approach combines compassionate consultation, evidence-based medicine, preve
     twitter: "https://twitter.com/", // ⚠️ Replace with practice profile
     youtube: "https://youtube.com/",
     practo: "https://practo.com/",
-    whatsapp: "https://wa.me/91XXXXXXXXXX" // ⚠️ Replace with real number,
+    whatsapp: "https://wa.me/919960628111",
   },
 
   navLinks: [

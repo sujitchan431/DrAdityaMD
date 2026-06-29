@@ -52,6 +52,16 @@ export function Hero() {
                 {siteConfig.stats.yearsExperience}+ Years Experience
               </span>
             </div>
+            <div className="mt-6 flex flex-wrap gap-2">
+              {siteConfig.specialties.map((specialty) => (
+                <span
+                  key={specialty}
+                  className="rounded-full border border-primary-100 bg-white/70 px-3 py-1 text-xs font-medium text-primary-700"
+                >
+                  {specialty}
+                </span>
+              ))}
+            </div>
           </motion.div>
 
           <motion.div

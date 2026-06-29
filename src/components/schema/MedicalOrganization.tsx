@@ -17,15 +17,9 @@ export function MedicalOrganizationSchema() {
       postalCode: siteConfig.clinic.postalCode,
       addressCountry: "IN",
     },
-    telephone: siteConfig.clinic.phone,
+    telephone: siteConfig.clinic.phoneRaw,
     email: siteConfig.clinic.email,
-    sameAs: [
-      siteConfig.social.linkedin,
-      siteConfig.social.facebook,
-      siteConfig.social.twitter,
-      siteConfig.social.youtube,
-      siteConfig.social.practo,
-    ].filter(Boolean),
+    sameAs: [siteConfig.social.whatsapp],
   };
 
   return (

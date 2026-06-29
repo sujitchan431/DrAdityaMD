@@ -119,7 +119,7 @@ async function main() {
 
   console.log(`Generating blog post on: "${topic}" → ${slug}.mdx`);
 
-  const prompt = `You are Dr. Aditya Davhale, MBBS MD DNB (Internal Medicine), a Consultant General Physician and Internal Medicine Specialist practicing in Navi Mumbai, India. Write a complete SEO-optimised medical blog post for your website dradityadavhale.com.
+  const prompt = `You are Dr. Aditya Davhale, MBBS MD DNB (Internal Medicine), Assistant Professor & Consultant Physician (Internal Medicine) practicing in Navi Mumbai, India. Write a complete SEO-optimised medical blog post for your website www.dradityamd.com.
 
 Topic: "${topic}"
 
@@ -136,7 +136,7 @@ Requirements:
 - Tailor advice for Indian patients (Indian food examples, Indian context)
 - Medically accurate, evidence-based, practical
 - Natural keyword usage — no keyword stuffing
-- End with a clear call-to-action to book an appointment
+- End with a clear call-to-action to book an appointment. Use ONLY these real contact details — never invent placeholders: book online at https://www.dradityamd.com/appointment, or call/WhatsApp +91 99606 28111. Do NOT use any phone number with X's or any domain other than www.dradityamd.com.
 - Do NOT include an image tag in the body — the image is set in frontmatter
 
 Use this exact frontmatter format:

@@ -46,6 +46,32 @@ export function Footer() {
                 {siteConfig.clinic.hours.days}: {siteConfig.clinic.hours.time}
               </p>
               <p>Consultation Fee: {siteConfig.clinic.consultationFee}</p>
+              <p>
+                <a
+                  href={`tel:${siteConfig.clinic.phoneRaw}`}
+                  className="transition-colors hover:text-primary-600"
+                >
+                  {siteConfig.clinic.phone}
+                </a>
+              </p>
+              <p>
+                <a
+                  href={siteConfig.social.whatsapp}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-medium text-[#1ebe5b] transition-colors hover:underline"
+                >
+                  WhatsApp Appointment
+                </a>
+              </p>
+              <p>
+                <a
+                  href={`mailto:${siteConfig.clinic.email}`}
+                  className="break-all transition-colors hover:text-primary-600"
+                >
+                  {siteConfig.clinic.email}
+                </a>
+              </p>
             </div>
           </div>
 

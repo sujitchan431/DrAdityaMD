@@ -15,7 +15,7 @@ export function LocalBusinessSchema() {
       postalCode: siteConfig.clinic.postalCode,
       addressCountry: "IN",
     },
-    telephone: siteConfig.clinic.phone,
+    telephone: siteConfig.clinic.phoneRaw,
     email: siteConfig.clinic.email,
     openingHours: "Mo-Su 19:00-22:00",
     priceRange: siteConfig.clinic.consultationFee,

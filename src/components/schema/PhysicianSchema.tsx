@@ -12,7 +12,11 @@ export function PhysicianSchema() {
       "General Practice",
       "Diabetes Management",
       "Hypertension",
+      "Critical Care Medicine",
+      "Infectious Disease",
     ],
+    hasCredential: siteConfig.stats.qualifications,
+    knowsLanguage: ["English", "Hindi", "Marathi"],
     address: {
       "@type": "PostalAddress",
       streetAddress: siteConfig.clinic.address,
@@ -21,20 +25,34 @@ export function PhysicianSchema() {
       postalCode: siteConfig.clinic.postalCode,
       addressCountry: "IN",
     },
-    telephone: siteConfig.clinic.phone,
+    telephone: siteConfig.clinic.phoneRaw,
     email: siteConfig.clinic.email,
     url: siteConfig.url,
-    sameAs: Object.values(siteConfig.social).filter(Boolean),
+    sameAs: [siteConfig.social.whatsapp],
     alumniOf: [
       {
         "@type": "CollegeOrUniversity",
-        name: "TNMC & BYL Nair Hospital, Mumbai",
+        name: "TN Medical College & BYL Nair Hospital, Mumbai",
       },
       {
         "@type": "CollegeOrUniversity",
-        name: "DY Patil University, Navi Mumbai",
+        name: "Dr. D. Y. Patil University, Navi Mumbai",
       },
     ],
+    hospitalAffiliation: siteConfig.hospitals.map((hospital) => ({
+      "@type": "Hospital",
+      name: hospital.name,
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: hospital.location,
+        addressRegion: "Maharashtra",
+        addressCountry: "IN",
+      },
+    })),
+    worksFor: {
+      "@type": "CollegeOrUniversity",
+      name: "Dr. D. Y. Patil University School of Medicine",
+    },
   };
 
   return (
