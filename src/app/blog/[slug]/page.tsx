@@ -30,15 +30,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = await getPost(slug);
   if (!post) return { title: "Post Not Found" };
 
+  const metaDescription = post.description || post.excerpt;
+
   return {
-    title: post.title,
-    description: post.excerpt,
+    title: post.metaTitle || post.title,
+    description: metaDescription,
+    keywords: post.keywords,
+    authors: [{ name: post.author, url: `${SITE_URL}/about` }],
     alternates: { canonical: `/blog/${slug}` },
     openGraph: {
-      title: post.title,
-      description: post.excerpt,
+      title: post.metaTitle || post.title,
+      description: metaDescription,
       type: "article",
       publishedTime: post.date,
+      modifiedTime: post.dateModified,
+      authors: [post.author],
+      tags: post.keywords,
       images: [
         {
           url: post.image.startsWith("http") ? post.image : `${SITE_URL}${post.image}`,
@@ -47,6 +54,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
           alt: post.title,
         },
       ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.metaTitle || post.title,
+      description: metaDescription,
     },
   };
 }
@@ -72,10 +84,16 @@ export default async function BlogPostPage({ params }: Props) {
     <>
       <ArticleSchema
         title={post.title}
-        description={post.excerpt}
+        description={post.description || post.excerpt}
         image={post.image}
         datePublished={post.date}
+        dateModified={post.dateModified}
+        lastReviewed={post.lastReviewed}
         slug={slug}
+        keywords={post.keywords}
+        wordCount={post.wordCount}
+        articleSection={post.tags[0]}
+        authorName={post.author}
       />
       {post.faq && <FAQSchema faqs={post.faq} />}
 

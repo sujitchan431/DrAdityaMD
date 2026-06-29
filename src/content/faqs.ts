@@ -26,7 +26,7 @@ export const faqs: FAQ[] = [
   {
     question: "What are the clinic timings and consultation fees?",
     answer:
-      "Dr. Aditya consults at Seawoods Hospital, Nerul Sector 48, Navi Mumbai. Timings are Monday to Sunday, 7:00 PM to 10:00 PM. The consultation fee is ₹800. Online consultation fees may vary.",
+      "Dr. Aditya consults at Seawoods Hospital, Nerul Sector 48, Navi Mumbai. Timings are Monday to Sunday, 11:00 AM to 10:00 PM. The consultation fee is ₹800. Online consultation fees may vary.",
     category: "Appointments",
   },
   {

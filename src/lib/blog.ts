@@ -8,11 +8,22 @@ export interface PostMeta {
   slug: string;
   title: string;
   date: string;
+  /** ISO date of last meaningful update — used for freshness signals & schema. */
+  dateModified: string;
+  /** ISO date the medical content was last reviewed (E-E-A-T). */
+  lastReviewed: string;
   author: string;
   excerpt: string;
+  /** Optional SEO <title>, distinct from the on-page H1. Falls back to title. */
+  metaTitle?: string;
+  /** Optional meta description, distinct from excerpt. Falls back to excerpt. */
+  description?: string;
+  /** Target keywords for this post (primary first). */
+  keywords: string[];
   tags: string[];
   image: string;
   readingTime: number;
+  wordCount: number;
   faq?: Array<{ question: string; answer: string }>;
 }
 
@@ -20,10 +31,20 @@ export interface Post extends PostMeta {
   content: string;
 }
 
-function calculateReadingTime(content: string): number {
-  const wordsPerMinute = 200;
-  const words = content.trim().split(/\s+/).length;
-  return Math.ceil(words / wordsPerMinute);
+function countWords(content: string): number {
+  return content.trim().split(/\s+/).filter(Boolean).length;
+}
+
+/** Normalize a frontmatter field that may be a string, array, or undefined. */
+function toStringArray(value: unknown): string[] {
+  if (Array.isArray(value)) return value.map((v) => String(v)).filter(Boolean);
+  if (typeof value === "string") {
+    return value
+      .split(",")
+      .map((v) => v.trim())
+      .filter(Boolean);
+  }
+  return [];
 }
 
 function parsePost(filePath: string, slug: string): Post | null {
@@ -33,15 +54,25 @@ function parsePost(filePath: string, slug: string): Post | null {
 
     if (!data.title || !data.date) return null;
 
+    const words = countWords(content);
+    const keywords = toStringArray(data.keywords);
+    const tags = toStringArray(data.tags);
+
     return {
       slug,
       title: data.title,
       date: data.date,
+      dateModified: data.dateModified || data.date,
+      lastReviewed: data.lastReviewed || data.dateModified || data.date,
       author: data.author || "Dr. Aditya Davhale",
       excerpt: data.excerpt || "",
-      tags: data.tags || [],
+      metaTitle: data.metaTitle || undefined,
+      description: data.description || undefined,
+      keywords: keywords.length ? keywords : tags,
+      tags,
       image: data.image || "/images/og/default-og.svg",
-      readingTime: calculateReadingTime(content),
+      readingTime: Math.max(1, Math.ceil(words / 200)),
+      wordCount: words,
       faq: data.faq || undefined,
       content,
     };
@@ -87,7 +118,8 @@ export async function searchPosts(query: string): Promise<PostMeta[]> {
     (p) =>
       p.title.toLowerCase().includes(q) ||
       p.excerpt.toLowerCase().includes(q) ||
-      p.tags.some((t) => t.toLowerCase().includes(q))
+      p.tags.some((t) => t.toLowerCase().includes(q)) ||
+      p.keywords.some((k) => k.toLowerCase().includes(q))
   );
 }
 

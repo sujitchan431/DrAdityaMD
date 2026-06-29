@@ -9,7 +9,7 @@ import { siteConfig } from "@/content/site-config";
 export const metadata: Metadata = {
   title: "Book an Appointment",
   description:
-    "Book a consultation with Dr. Aditya Davhale at Seawoods Hospital, Nerul, Navi Mumbai. Evening consultations available Monday to Sunday. Consultation fee ₹800.",
+    "Book a consultation with Dr. Aditya Davhale at Seawoods Hospital, Nerul, Navi Mumbai. Consultations available Monday to Sunday, 11 AM to 10 PM. Consultation fee ₹800.",
   alternates: { canonical: "/appointment" },
 };
 
@@ -31,7 +31,7 @@ export default function AppointmentPage() {
           </h1>
           <p className="mt-4 text-lg text-gray-600">
             Schedule a consultation with Dr. Aditya Davhale at Seawoods Hospital,
-            Navi Mumbai. Evening consultations available every day.
+            Navi Mumbai. Consultations available every day, 11 AM to 10 PM.
           </p>
           <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <a

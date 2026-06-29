@@ -7,6 +7,7 @@ export function FAQSchema({ faqs }: { faqs: FAQ[] }) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
+    inLanguage: "en-IN",
     mainEntity: faqs.map((faq) => ({
       "@type": "Question",
       name: faq.question,

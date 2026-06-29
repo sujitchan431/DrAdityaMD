@@ -87,7 +87,7 @@ His approach combines compassionate consultation, evidence-based medicine, preve
     email: "dradityadavhale@gmail.com",
     hours: {
       days: "Monday to Sunday",
-      time: "7:00 PM – 10:00 PM",
+      time: "11:00 AM – 10:00 PM",
     },
     consultationFee: "₹800",
     geo: {

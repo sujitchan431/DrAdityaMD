@@ -17,7 +17,7 @@ export function LocalBusinessSchema() {
     },
     telephone: siteConfig.clinic.phoneRaw,
     email: siteConfig.clinic.email,
-    openingHours: "Mo-Su 19:00-22:00",
+    openingHours: "Mo-Su 11:00-22:00",
     priceRange: siteConfig.clinic.consultationFee,
     geo: {
       "@type": "GeoCoordinates",
