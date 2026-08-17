@@ -110,6 +110,126 @@ const TOPIC_POOL = [
     primary: "diabetic retinopathy symptoms",
     secondary: ["diabetes eye damage", "prevent diabetic retinopathy", "diabetes vision problems", "diabetic eye screening"],
   },
+  {
+    topic: "high blood pressure: causes symptoms and treatment",
+    primary: "high blood pressure causes and treatment",
+    secondary: ["hypertension symptoms", "how to lower blood pressure naturally", "high BP home remedies India", "stage 1 hypertension treatment"],
+  },
+  {
+    topic: "type 2 diabetes diet plan for Indians",
+    primary: "diabetes diet plan India",
+    secondary: ["type 2 diabetes food list", "diabetes diet chart Indian", "foods to avoid in diabetes", "diabetes meal plan Indian"],
+  },
+  {
+    topic: "asthma symptoms triggers and management",
+    primary: "asthma symptoms and triggers",
+    secondary: ["asthma treatment India", "how to control asthma", "asthma inhaler types", "winter asthma tips"],
+  },
+  {
+    topic: "arthritis and joint pain management",
+    primary: "arthritis joint pain relief",
+    secondary: ["osteoarthritis treatment", "knee pain home remedies", "rheumatoid arthritis symptoms", "joint pain diet"],
+  },
+  {
+    topic: "obesity and healthy weight management",
+    primary: "obesity treatment and weight loss",
+    secondary: ["how to lose weight safely", "BMI chart India", "obesity health risks", "weight loss diet plan Indian"],
+  },
+  {
+    topic: "constipation causes and home remedies",
+    primary: "constipation home remedies",
+    secondary: ["chronic constipation causes", "foods for constipation", "constipation in adults", "is constipation dangerous"],
+  },
+  {
+    topic: "gas and bloating home remedies",
+    primary: "gas and bloating remedies",
+    secondary: ["excessive gas causes", "bloating after eating", "gas problem home remedy India", "acidity vs gas"],
+  },
+  {
+    topic: "hair fall causes and treatment",
+    primary: "hair fall treatment",
+    secondary: ["hair fall reasons male", "vitamin deficiency hair fall", "dandruff hair loss", "hair fall after covid"],
+  },
+  {
+    topic: "skin allergies causes and treatment",
+    primary: "skin allergy treatment",
+    secondary: ["skin allergy symptoms", "itching home remedies", "hives causes", "contact dermatitis treatment"],
+  },
+  {
+    topic: "typhoid fever symptoms and treatment",
+    primary: "typhoid fever treatment",
+    secondary: ["typhoid symptoms", "typhoid diet", "widal test explained", "typhoid fever prevention"],
+  },
+  {
+    topic: "malaria symptoms prevention and treatment",
+    primary: "malaria symptoms and prevention",
+    secondary: ["malaria treatment", "malaria mosquito prevention", "dengue vs malaria", "malaria test"],
+  },
+  {
+    topic: "urinary tract infection symptoms and treatment",
+    primary: "UTI symptoms and treatment",
+    secondary: ["urine infection home remedies", "UTI in women", "burning urination causes", "UTI prevention"],
+  },
+  {
+    topic: "liver function test explained",
+    primary: "liver function test explained",
+    secondary: ["SGPT SGOT normal range", "high SGPT causes", "fatty liver blood test", "LFT test preparation"],
+  },
+  {
+    topic: "kidney function test explained",
+    primary: "kidney function test explained",
+    secondary: ["creatinine normal range", "urea creatinine test", "eGFR explained", "kidney test India"],
+  },
+  {
+    topic: "thyroid test report: TSH T3 T4 explained",
+    primary: "thyroid test report explained",
+    secondary: ["TSH normal range", "T3 T4 test", "hypothyroidism vs hyperthyroidism", "thyroid test fasting"],
+  },
+  {
+    topic: "vitamin B12 deficiency symptoms and treatment",
+    primary: "vitamin B12 deficiency symptoms",
+    secondary: ["vitamin B12 foods vegetarian", "B12 deficiency causes", "B12 injection", "B12 normal range"],
+  },
+  {
+    topic: "dehydration signs causes and prevention",
+    primary: "dehydration symptoms and prevention",
+    secondary: ["signs of dehydration", "dehydration treatment", "ORS for dehydration", "how much water per day"],
+  },
+  {
+    topic: "heat stroke prevention tips for summer",
+    primary: "heat stroke prevention",
+    secondary: ["heat stroke symptoms", "heat exhaustion vs heat stroke", "summer health tips India", "heat wave safety"],
+  },
+  {
+    topic: "monsoon diseases prevention tips",
+    primary: "monsoon diseases prevention",
+    secondary: ["monsoon health tips", "dengue malaria monsoon", "waterborne diseases monsoon", "monsoon immunity"],
+  },
+  {
+    topic: "stomach ulcer symptoms diet and treatment",
+    primary: "stomach ulcer treatment",
+    secondary: ["stomach ulcer symptoms", "ulcer diet", "H pylori treatment", "acidity vs ulcer"],
+  },
+  {
+    topic: "piles hemorrhoids symptoms and home remedies",
+    primary: "piles home remedies",
+    secondary: ["hemorrhoids treatment", "piles symptoms", "piles diet", "piles vs fissure"],
+  },
+  {
+    topic: "snoring and sleep apnea",
+    primary: "snoring and sleep apnea",
+    secondary: ["sleep apnea symptoms", "snoring causes and treatment", "sleep apnea test", "snoring home remedies"],
+  },
+  {
+    topic: "protein deficiency in vegetarian Indian diet",
+    primary: "protein deficiency symptoms",
+    secondary: ["protein rich vegetarian foods India", "daily protein requirement", "protein deficiency hair fall", "vegetarian protein sources"],
+  },
+  {
+    topic: "calcium and vitamin D for bone health",
+    primary: "calcium deficiency bone health",
+    secondary: ["calcium rich foods India", "osteoporosis prevention", "vitamin D and calcium", "bone health after 40"],
+  },
 ];
 
 const UNSPLASH_IMAGES = [
@@ -136,7 +256,7 @@ function pickTopic(existingSlugs) {
     if (!existingSlugs.includes(slug)) return entry;
   }
   const now = new Date();
-  const label = `health tips for ${now.toLocaleDateString("en-IN", { month: "long" })} ${now.getFullYear()}`;
+  const label = `health tips and wellness advice for ${now.toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" })}`;
   return { topic: label, primary: label, secondary: ["preventive health India", "internal medicine Navi Mumbai"] };
 }
 
