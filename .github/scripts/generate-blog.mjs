@@ -385,8 +385,8 @@ async function main() {
 
   const filePath = path.join(BLOG_DIR, `${slug}.mdx`);
   if (fs.existsSync(filePath)) {
-    console.log(`File ${slug}.mdx already exists. Skipping.`);
-    return;
+    console.error(`File ${slug}.mdx already exists — duplicate slug. Failing loudly.`);
+    process.exit(1);
   }
 
   fs.mkdirSync(BLOG_DIR, { recursive: true });

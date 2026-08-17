@@ -34,7 +34,8 @@ jobs:
           git config user.email "dr.adityadavhale@gmail.com"
           git add src/content/blog/
           if git diff --cached --quiet; then
-            echo "No new post generated."
+            echo "::error::No new post generated — topic pool exhausted or duplicate slug. Failing loudly instead of silently succeeding."
+            exit 1
           else
             git commit -m "feat(blog): auto-publish new SEO article [skip ci]"
             git push origin master
