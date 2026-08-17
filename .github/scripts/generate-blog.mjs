@@ -377,7 +377,10 @@ async function main() {
 
   console.log(`Generating blog post on: "${entry.topic}" (primary: "${entry.primary}") → ${slug}.mdx`);
 
-  const mdxContent = await callDeepSeekAPI(buildPrompt(entry, today, image));
+  let mdxContent = await callDeepSeekAPI(buildPrompt(entry, today, image));
+  // Escape raw '<' not followed by a tag/comment opener — MDX otherwise parses
+  // "less than" comparisons like '<100' or '< 18.5' as broken JSX tags.
+  mdxContent = mdxContent.replace(/<(?![a-zA-Z/!])/g, "&lt;");
 
   if (!mdxContent.trim().startsWith("---")) {
     throw new Error("Generated content does not start with frontmatter. Aborting.");
