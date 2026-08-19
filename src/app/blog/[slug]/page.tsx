@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/layout/Container";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
@@ -106,7 +107,7 @@ export default async function BlogPostPage({ params }: Props) {
               {post.tags.map((tag) => (
                 <a
                   key={tag}
-                  href={`/blog?tag=${tag}`}
+                  href={`/blog?tag=${encodeURIComponent(tag)}`}
                   className="rounded-full bg-primary-50 px-3 py-1 text-xs font-medium text-primary-700 hover:bg-primary-100 transition-colors"
                 >
                   {tag}
@@ -124,6 +125,19 @@ export default async function BlogPostPage({ params }: Props) {
               <ReadingTime minutes={post.readingTime} />
             </div>
           </header>
+
+          {post.image && (
+            <div className="relative mb-10 aspect-[16/9] overflow-hidden rounded-2xl border border-gray-100 bg-gray-100 shadow-sm">
+              <Image
+                src={post.image}
+                alt={post.title}
+                fill
+                preload
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 896px"
+              />
+            </div>
+          )}
 
           <div className="flex gap-10">
             {/* Sidebar with TOC */}

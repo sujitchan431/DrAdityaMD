@@ -1,10 +1,11 @@
+import type { ComponentProps } from "react";
 import type { MDXComponents } from "mdx/types";
 import Image from "next/image";
 import Link from "next/link";
 
-export function useMDXComponents(components: MDXComponents): MDXComponents {
+export function useMDXComponents(components: MDXComponents = {}): MDXComponents {
   return {
-    h1: ({ children, id }) => (
+    h1: ({ children, id }: ComponentProps<"h1">) => (
       <h1
         id={id}
         className="mb-6 mt-12 text-3xl font-bold tracking-tight text-gray-900"
@@ -12,7 +13,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         {children}
       </h1>
     ),
-    h2: ({ children, id }) => (
+    h2: ({ children, id }: ComponentProps<"h2">) => (
       <h2
         id={id}
         className="mb-4 mt-10 text-2xl font-semibold text-gray-800"
@@ -20,7 +21,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         {children}
       </h2>
     ),
-    h3: ({ children, id }) => (
+    h3: ({ children, id }: ComponentProps<"h3">) => (
       <h3
         id={id}
         className="mb-3 mt-8 text-xl font-semibold text-gray-800"
@@ -28,10 +29,10 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         {children}
       </h3>
     ),
-    p: ({ children }) => (
+    p: ({ children }: ComponentProps<"p">) => (
       <p className="mb-4 leading-relaxed text-gray-700">{children}</p>
     ),
-    a: ({ href, children }) => {
+    a: ({ href, children }: ComponentProps<"a">) => {
       const isExternal = href?.startsWith("http");
       if (isExternal) {
         return (
@@ -51,7 +52,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         </Link>
       );
     },
-    img: ({ src, alt }) => (
+    img: ({ src, alt }: ComponentProps<"img">) => (
       <Image
         src={src as string}
         alt={alt ?? ""}
@@ -61,17 +62,17 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         sizes="(max-width: 768px) 100vw, 800px"
       />
     ),
-    ul: ({ children }) => (
+    ul: ({ children }: ComponentProps<"ul">) => (
       <ul className="mb-4 list-disc space-y-1 pl-6 text-gray-700">
         {children}
       </ul>
     ),
-    ol: ({ children }) => (
+    ol: ({ children }: ComponentProps<"ol">) => (
       <ol className="mb-4 list-decimal space-y-1 pl-6 text-gray-700">
         {children}
       </ol>
     ),
-    blockquote: ({ children }) => (
+    blockquote: ({ children }: ComponentProps<"blockquote">) => (
       <blockquote className="my-6 border-l-4 border-primary-500 pl-4 italic text-gray-600">
         {children}
       </blockquote>
