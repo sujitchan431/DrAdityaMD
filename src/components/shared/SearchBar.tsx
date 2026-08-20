@@ -11,8 +11,14 @@ export function SearchBar({
 }) {
   const [value, setValue] = useState(defaultValue);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const hasMountedRef = useRef(false);
 
   useEffect(() => {
+    if (!hasMountedRef.current) {
+      hasMountedRef.current = true;
+      return;
+    }
+
     timeoutRef.current = setTimeout(() => {
       onSearch(value);
     }, 300);
