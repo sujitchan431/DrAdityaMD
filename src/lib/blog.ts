@@ -1,6 +1,11 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import {
+  extractHeadings,
+  stripDuplicateTitleHeading,
+  type BlogHeading,
+} from "@/lib/blog-content";
 
 const BLOG_DIR = path.join(process.cwd(), "src/content/blog");
 
@@ -54,7 +59,8 @@ function parsePost(filePath: string, slug: string): Post | null {
 
     if (!data.title || !data.date) return null;
 
-    const words = countWords(content);
+    const cleanedContent = stripDuplicateTitleHeading(content, data.title);
+    const words = countWords(cleanedContent);
     const keywords = toStringArray(data.keywords);
     const tags = toStringArray(data.tags);
 
@@ -74,7 +80,7 @@ function parsePost(filePath: string, slug: string): Post | null {
       readingTime: Math.max(1, Math.ceil(words / 200)),
       wordCount: words,
       faq: data.faq || undefined,
-      content,
+      content: cleanedContent,
     };
   } catch {
     return null;
@@ -147,26 +153,11 @@ export async function getPaginatedPosts(
 
 export async function getHeadings(
   slug: string
-): Promise<Array<{ id: string; text: string; level: number }>> {
+): Promise<BlogHeading[]> {
   const post = await getPost(slug);
   if (!post) return [];
 
-  const headings: Array<{ id: string; text: string; level: number }> = [];
-  const regex = /^(#{2,3})\s+(.+)$/gm;
-  let match: RegExpExecArray | null;
-
-  while ((match = regex.exec(post.content)) !== null) {
-    const level = match[1].length;
-    const text = match[2].trim();
-    const id = text
-      .toLowerCase()
-      .replace(/[^\w\s-]/g, "")
-      .replace(/[\s_]+/g, "-")
-      .replace(/^-+|-+$/g, "");
-    headings.push({ id, text, level });
-  }
-
-  return headings;
+  return extractHeadings(post.content);
 }
 
 export async function getRelatedPosts(

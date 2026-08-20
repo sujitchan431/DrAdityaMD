@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import { Suspense } from "react";
 import { Container } from "@/components/layout/Container";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { BlogCard } from "@/components/shared/BlogCard";
-import { SearchBar } from "@/components/shared/SearchBar";
-import { TagFilter } from "@/components/shared/TagFilter";
 import { Pagination } from "@/components/shared/Pagination";
 import { NewsletterSignup } from "@/components/shared/NewsletterSignup";
-import { getAllPosts, searchPosts, getPostsByTag, getPaginatedPosts } from "@/lib/blog";
+import { getAllPosts, searchPosts, getPostsByTag } from "@/lib/blog";
 import { POSTS_PER_PAGE } from "@/lib/constants";
 
 export const metadata: Metadata = {
@@ -24,25 +24,22 @@ export default async function BlogPage({
   const params = await searchParams;
   const query = params.q || "";
   const tag = params.tag || null;
-  const page = parseInt(params.page || "1", 10);
+  const requestedPage = Number.parseInt(params.page || "1", 10);
+  const page = Number.isFinite(requestedPage) && requestedPage > 0 ? requestedPage : 1;
 
-  let posts;
+  let allMatchingPosts;
   if (query) {
-    posts = await searchPosts(query);
+    allMatchingPosts = await searchPosts(query);
   } else if (tag) {
-    posts = await getPostsByTag(tag);
+    allMatchingPosts = await getPostsByTag(tag);
   } else {
-    const paginated = await getPaginatedPosts(page, POSTS_PER_PAGE);
-    posts = paginated.posts;
+    allMatchingPosts = await getAllPosts();
   }
 
-  const totalPages = Math.ceil(
-    ((query
-      ? (await searchPosts(query)).length
-      : tag
-        ? (await getPostsByTag(tag)).length
-        : (await getAllPosts()).length) || 1) / POSTS_PER_PAGE
-  );
+  const totalPages = Math.max(1, Math.ceil(allMatchingPosts.length / POSTS_PER_PAGE));
+  const currentPage = Math.min(page, totalPages);
+  const start = (currentPage - 1) * POSTS_PER_PAGE;
+  const posts = allMatchingPosts.slice(start, start + POSTS_PER_PAGE);
 
   const breadcrumbs = [
     { name: "Home", item: "/" },
@@ -64,16 +61,20 @@ export default async function BlogPage({
       </div>
 
       <div className="mt-8 space-y-4">
-        <SearchBarWrapper />
-        <TagFilterWrapper selected={tag} />
+        <Suspense fallback={<div className="h-11 rounded-lg bg-gray-50" />}>
+          <SearchBarWrapper />
+        </Suspense>
+        <Suspense fallback={<div className="h-9 rounded-lg bg-gray-50" />}>
+          <TagFilterWrapper selected={tag} />
+        </Suspense>
       </div>
 
       {posts.length === 0 ? (
         <div className="mt-16 text-center py-12">
           <p className="text-gray-500 text-lg">No articles found matching your criteria.</p>
-          <a href="/blog" className="mt-4 inline-flex text-primary-600 text-sm font-medium hover:text-primary-700">
+          <Link href="/blog" className="mt-4 inline-flex text-primary-600 text-sm font-medium hover:text-primary-700">
             Clear all filters →
-          </a>
+          </Link>
         </div>
       ) : (
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -95,7 +96,7 @@ export default async function BlogPage({
       {posts.length > 0 && (
         <div className="mt-10">
           <Pagination
-            currentPage={page}
+            currentPage={currentPage}
             totalPages={totalPages}
             basePath="/blog"
             searchParams={

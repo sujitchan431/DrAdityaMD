@@ -77,6 +77,32 @@ export function useMDXComponents(components: MDXComponents = {}): MDXComponents 
         {children}
       </blockquote>
     ),
+    table: ({ children }: ComponentProps<"table">) => (
+      <div className="my-8 overflow-x-auto rounded-xl border border-gray-200 shadow-sm">
+        <table className="min-w-full divide-y divide-gray-200 text-sm">
+          {children}
+        </table>
+      </div>
+    ),
+    thead: ({ children }: ComponentProps<"thead">) => (
+      <thead className="bg-medical-50 text-left text-xs font-semibold uppercase tracking-wide text-medical-800">
+        {children}
+      </thead>
+    ),
+    tbody: ({ children }: ComponentProps<"tbody">) => (
+      <tbody className="divide-y divide-gray-100 bg-white">{children}</tbody>
+    ),
+    tr: ({ children }: ComponentProps<"tr">) => (
+      <tr className="align-top">{children}</tr>
+    ),
+    th: ({ children }: ComponentProps<"th">) => (
+      <th className="whitespace-nowrap px-4 py-3">{children}</th>
+    ),
+    td: ({ children }: ComponentProps<"td">) => (
+      <td className="min-w-36 px-4 py-3 leading-relaxed text-gray-700">
+        {children}
+      </td>
+    ),
     ...components,
   };
 }
