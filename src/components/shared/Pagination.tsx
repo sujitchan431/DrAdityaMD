@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
@@ -35,14 +33,15 @@ export function Pagination({
   return (
     <nav className="flex items-center justify-center gap-1" aria-label="Pagination">
       {currentPage > 1 && (
-        <Link
+        <a
           href={buildHref(currentPage - 1)}
+          aria-label="Previous page"
           className="flex h-9 w-9 items-center justify-center rounded-lg text-gray-600 hover:bg-gray-100 transition-colors"
         >
           <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
-        </Link>
+        </a>
       )}
       {pages.map((page, i) =>
         page === "..." ? (
@@ -50,9 +49,11 @@ export function Pagination({
             ...
           </span>
         ) : (
-          <Link
+          <a
             key={page}
             href={buildHref(page)}
+            aria-current={page === currentPage ? "page" : undefined}
+            aria-label={`Page ${page}`}
             className={`flex h-9 w-9 items-center justify-center rounded-lg text-sm font-medium transition-colors ${
               page === currentPage
                 ? "bg-primary-600 text-white shadow-sm"
@@ -60,18 +61,19 @@ export function Pagination({
             }`}
           >
             {page}
-          </Link>
+          </a>
         )
       )}
       {currentPage < totalPages && (
-        <Link
+        <a
           href={buildHref(currentPage + 1)}
+          aria-label="Next page"
           className="flex h-9 w-9 items-center justify-center rounded-lg text-gray-600 hover:bg-gray-100 transition-colors"
         >
           <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
-        </Link>
+        </a>
       )}
     </nav>
   );
