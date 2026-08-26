@@ -276,8 +276,14 @@ function randomImage() {
 
 function callDeepSeekAPI(prompt) {
   return new Promise((resolve, reject) => {
+    const apiKey = process.env.DEEPSEEK_API_KEY?.trim();
+    if (!apiKey) {
+      reject(new Error("DEEPSEEK_API_KEY is not configured in GitHub Actions secrets."));
+      return;
+    }
+
     const body = JSON.stringify({
-      model: "deepseek-chat",
+      model: "deepseek-v4-flash",
       max_tokens: 6000,
       messages: [{ role: "user", content: prompt }],
     });
@@ -288,7 +294,7 @@ function callDeepSeekAPI(prompt) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.DEEPSEEK_API_KEY}`,
+        Authorization: `Bearer ${apiKey}`,
         "Content-Length": Buffer.byteLength(body),
       },
     };
@@ -299,10 +305,20 @@ function callDeepSeekAPI(prompt) {
       res.on("end", () => {
         try {
           const parsed = JSON.parse(data);
+          if (res.statusCode < 200 || res.statusCode >= 300) {
+            reject(
+              new Error(
+                `DeepSeek API returned HTTP ${res.statusCode}: ${parsed.error?.message || "Unknown API error"}`
+              )
+            );
+            return;
+          }
           if (parsed.error) reject(new Error(parsed.error.message));
-          else resolve(parsed.choices[0].message.content);
+          else if (!parsed.choices?.[0]?.message?.content) {
+            reject(new Error("DeepSeek API returned no generated content."));
+          } else resolve(parsed.choices[0].message.content);
         } catch (e) {
-          reject(e);
+          reject(new Error(`DeepSeek API returned invalid JSON: ${e.message}`));
         }
       });
     });
