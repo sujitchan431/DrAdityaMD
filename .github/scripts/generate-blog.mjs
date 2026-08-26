@@ -230,6 +230,46 @@ const TOPIC_POOL = [
     primary: "calcium deficiency bone health",
     secondary: ["calcium rich foods India", "osteoporosis prevention", "vitamin D and calcium", "bone health after 40"],
   },
+  {
+    topic: "prediabetes and HbA1c explained",
+    primary: "prediabetes HbA1c",
+    secondary: ["prediabetes symptoms", "how to lower HbA1c", "prediabetes diet India", "prevent type 2 diabetes"],
+  },
+  {
+    topic: "metabolic syndrome explained",
+    primary: "metabolic syndrome symptoms",
+    secondary: ["metabolic syndrome criteria", "waist circumference diabetes risk", "high triglycerides and blood pressure", "metabolic health India"],
+  },
+  {
+    topic: "chronic cough causes and warning signs",
+    primary: "chronic cough causes",
+    secondary: ["cough lasting more than 3 weeks", "chronic cough treatment", "cough due to acidity", "when to see a doctor for cough"],
+  },
+  {
+    topic: "seasonal allergic rhinitis management",
+    primary: "allergic rhinitis treatment",
+    secondary: ["allergic rhinitis symptoms", "dust allergy treatment", "nasal allergy home care", "allergic rhinitis medicine"],
+  },
+  {
+    topic: "menopause symptoms and healthy ageing",
+    primary: "menopause symptoms treatment",
+    secondary: ["menopause hot flashes", "menopause weight gain", "bone health after menopause", "menopause doctor India"],
+  },
+  {
+    topic: "chronic kidney disease early warning signs",
+    primary: "chronic kidney disease symptoms",
+    secondary: ["early kidney disease signs", "kidney disease diabetes", "eGFR explained", "kidney health blood pressure"],
+  },
+  {
+    topic: "heart palpitations causes and red flags",
+    primary: "heart palpitations causes",
+    secondary: ["fast heartbeat causes", "palpitations anxiety or heart problem", "irregular heartbeat symptoms", "when palpitations are dangerous"],
+  },
+  {
+    topic: "fatigue causes and medical evaluation",
+    primary: "fatigue causes and treatment",
+    secondary: ["constant tiredness causes", "fatigue blood tests", "anaemia thyroid fatigue", "when to see a doctor for fatigue"],
+  },
 ];
 
 const UNSPLASH_IMAGES = [
@@ -349,9 +389,10 @@ SEO + AEO requirements (follow ALL):
 5. Keep paragraphs short (2-3 sentences). Use bullet lists and at least one comparison/markdown table where it helps. Bold the most important terms.
 6. Length: 1500-1800 words of genuinely useful, evidence-based content. Indian context — Indian foods, Indian habits, Indian healthcare reality.
 7. Add internal links naturally in the body using markdown: link the phrase "internal medicine services" to ${SITE}/services, and include a closing line linking "book an appointment" to ${SITE}/appointment. You may also link "Dr. Aditya Davhale" to ${SITE}/about once. Do NOT invent any other internal URLs.
-8. Demonstrate first-hand clinical experience (E-E-A-T): use phrases like "In my clinic I often see..." where appropriate. Be medically accurate and cite general medical consensus (no fake studies or fake statistics).
-9. End with a clear call-to-action. Use ONLY these real contact details — never invent placeholders: book online at ${SITE}/appointment, or call/WhatsApp ${PHONE}. Never use a phone number containing X's or any domain other than www.dradityamd.com.
-10. Do NOT include an image tag in the body — the image is set in frontmatter.
+8. Demonstrate first-hand clinical experience (E-E-A-T): use phrases like "In my clinic I often see..." only where they reflect real clinical experience. Be medically accurate and cite general medical consensus (no fake studies or fake statistics).
+9. Add a short Navi Mumbai-relevant section only when it provides genuine value, such as local climate, monsoon, commute, apartment living, or Indian food habits. Never invent patient case studies, surveys, outcomes, testimonials, review counts, or local statistics. Use a case study only when the prompt supplies real, consented, anonymised data, and label survey methods and limitations honestly.
+10. End with a clear call-to-action. Use ONLY these real contact details — never invent placeholders: book online at ${SITE}/appointment, or call/WhatsApp ${PHONE}. Never use a phone number containing X's or any domain other than www.dradityamd.com.
+11. Do NOT include an image tag in the body — the image is set in frontmatter.
 
 FAQ block: write 5 question/answer pairs. Each question must be a natural search query. Each answer must be answer-first and self-contained (40-60 words) so it works as a rich result and an AI citation.
 

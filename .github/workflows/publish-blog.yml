@@ -1,10 +1,14 @@
-name: Auto-publish SEO Blog Post
+name: Publish Scheduled SEO Blog Post
 
 on:
   schedule:
-    # Monday and Friday at 11:00 AM UTC = 4:30 PM IST
-    - cron: "0 11 * * 1,5"
+    # Daily at 11:00 AM UTC = 4:30 PM IST. The script publishes only due posts.
+    - cron: "0 11 * * *"
   workflow_dispatch: # allow manual trigger
+
+concurrency:
+  group: scheduled-blog-publisher
+  cancel-in-progress: false
 
 jobs:
   publish:
@@ -17,26 +21,25 @@ jobs:
         uses: actions/checkout@v5
         with:
           fetch-depth: 0
+          ref: master
 
       - name: Set up Node.js
         uses: actions/setup-node@v5
         with:
           node-version: "24"
 
-      - name: Generate blog post via DeepSeek API
-        env:
-          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
-        run: node .github/scripts/generate-blog.mjs
+      - name: Publish all due scheduled posts
+        run: node .github/scripts/publish-scheduled-blog.mjs
 
-      - name: Commit and push new blog post
+      - name: Commit and push due blog posts
         run: |
           git config user.name "Dr. Aditya Davhale Blog Bot"
           git config user.email "dr.adityadavhale@gmail.com"
-          git add src/content/blog/
+          git add src/content/blog/ src/content/blog-scheduled/
           if git diff --cached --quiet; then
-            echo "::error::No new post generated — topic pool exhausted or duplicate slug. Failing loudly instead of silently succeeding."
-            exit 1
+            echo "No scheduled post is due today."
           else
-            git commit -m "feat(blog): auto-publish new SEO article [skip ci]"
-            git push origin master
+            git commit -m "feat(blog): publish scheduled SEO article"
+            git pull --rebase origin master
+            git push origin HEAD:master
           fi
