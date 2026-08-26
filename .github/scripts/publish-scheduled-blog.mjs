@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
+import { createHash } from "node:crypto";
 
 export function todayInNaviMumbai() {
   if (process.env.PUBLISH_DATE) {
@@ -37,21 +38,47 @@ export function publishDuePosts({
   log = console.log,
 } = {}) {
   const scheduledDir = path.join(root, "src", "content", "blog-scheduled");
+  const scheduledImageDir = path.join(root, "src", "content", "blog-scheduled-images");
   const liveDir = path.join(root, "src", "content", "blog");
+  const liveImageDir = path.join(root, "public", "images", "blog");
+  const manifestPath = path.join(root, ".github", "blog-schedule.json");
 
-  if (!fs.existsSync(scheduledDir)) {
-    log(`No scheduled directory found. Nothing to publish on ${today}.`);
+  if (!fs.existsSync(manifestPath)) {
+    log(`No schedule manifest found. Nothing to publish on ${today}.`);
     return [];
   }
 
-  const due = fs
-    .readdirSync(scheduledDir)
-    .filter((file) => file.endsWith(".mdx"))
-    .map((file) => ({
-      file,
-      date: readPublicationDate(path.join(scheduledDir, file)),
-    }))
-    .filter(({ date }) => date <= today)
+  const schedule = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
+  if (!Array.isArray(schedule)) throw new Error("Blog schedule manifest must be an array.");
+  const slugs = new Set();
+  for (const entry of schedule) {
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(entry.slug ?? "")) {
+      throw new Error(`Invalid scheduled slug: ${entry.slug}`);
+    }
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(entry.date ?? "")) {
+      throw new Error(`Invalid scheduled date for ${entry.slug}.`);
+    }
+    if (!/^[a-f0-9]{64}$/.test(entry.sha256 ?? "")) {
+      throw new Error(`Invalid release digest for ${entry.slug}.`);
+    }
+    if (entry.status !== "scheduled") {
+      throw new Error(`Invalid release status for ${entry.slug}.`);
+    }
+    if (slugs.has(entry.slug)) throw new Error(`Duplicate scheduled slug: ${entry.slug}`);
+    slugs.add(entry.slug);
+  }
+
+  const due = schedule
+    .filter(({ status }) => status === "scheduled")
+    .map(({ slug, date, sha256 }) => ({ file: `${slug}.mdx`, image: `${slug}.jpg`, date, sha256 }))
+    .filter(({ file, date }) => {
+      const source = path.join(scheduledDir, file);
+      const live = path.join(liveDir, file);
+      if (!fs.existsSync(source) && !fs.existsSync(live)) {
+        throw new Error(`Scheduled article is missing from both draft and live folders: ${file}`);
+      }
+      return date <= today && fs.existsSync(source);
+    })
     .sort((a, b) => a.date.localeCompare(b.date) || a.file.localeCompare(b.file));
 
   if (due.length === 0) {
@@ -59,22 +86,44 @@ export function publishDuePosts({
     return [];
   }
 
-  for (const { file } of due) {
+  for (const { file, image, date, sha256 } of due) {
+    const source = path.join(scheduledDir, file);
+    const imageSource = path.join(scheduledImageDir, image);
     const destination = path.join(liveDir, file);
-    if (fs.existsSync(destination)) {
+    const imageDestination = path.join(liveImageDir, image);
+    if (readPublicationDate(source) !== date) {
+      throw new Error(`${file} date does not match the schedule manifest.`);
+    }
+    const actualDigest = createHash("sha256").update(fs.readFileSync(source)).digest("hex");
+    if (!sha256 || actualDigest !== sha256) {
+      throw new Error(`${file} changed after it was added to the release manifest.`);
+    }
+    if (!fs.existsSync(imageSource)) {
+      throw new Error(`Scheduled image is missing: ${imageSource}`);
+    }
+    if (fs.existsSync(destination) || fs.existsSync(imageDestination)) {
       throw new Error(`Refusing to overwrite existing live article: ${destination}`);
     }
   }
 
   fs.mkdirSync(liveDir, { recursive: true });
-  for (const { file, date } of due) {
+  fs.mkdirSync(liveImageDir, { recursive: true });
+  for (const { file, image, date } of due) {
     const source = path.join(scheduledDir, file);
+    const imageSource = path.join(scheduledImageDir, image);
     const destination = path.join(liveDir, file);
+    const imageDestination = path.join(liveImageDir, image);
 
     if (dryRun) {
       log(`[dry-run] ${date}: ${file}`);
     } else {
-      fs.renameSync(source, destination);
+      fs.renameSync(imageSource, imageDestination);
+      try {
+        fs.renameSync(source, destination);
+      } catch (error) {
+        fs.renameSync(imageDestination, imageSource);
+        throw error;
+      }
       log(`Published ${date}: ${file}`);
     }
   }

@@ -14,10 +14,12 @@ Their original publication dates are retained, while `dateModified` and `lastRev
 
 ## Publishing system
 
-- The 26 future articles are stored in `src/content/blog-scheduled`, outside the public blog collection.
+- The 26 future articles are stored in `src/content/blog-scheduled`, outside the public blog collection. Their future cover images stay in `src/content/blog-scheduled-images`, outside the public web root.
+- `.github/blog-schedule.json` is the release allowlist. It fixes each slug, date, status, and article digest; the publisher rejects content changed without an explicit manifest update.
 - GitHub Actions runs daily at 11:00 UTC (4:30 PM IST).
 - On or after a post's publication date, the publisher moves it into `src/content/blog`, commits that change to `master`, and lets the existing deployment process publish it.
 - If a scheduled run is delayed or missed, the next run catches up every overdue post in chronological order.
+- Before and after moving due content, GitHub Actions runs the schedule tests and MDX/image checks; it also runs a full production build before committing to `master`.
 - A day with no due post exits successfully without an empty commit.
 - The schedule begins on 29 August 2026 and publishes every three days through 12 November 2026: 26 posts over the next 78 days.
 - The publisher has no AI API or paid-service dependency. All copy and images are already in the repository.

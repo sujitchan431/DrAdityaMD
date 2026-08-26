@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
@@ -9,13 +10,30 @@ import { publishDuePosts, readPublicationDate } from "./publish-scheduled-blog.m
 function makeFixture(posts) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "dradityamd-publisher-"));
   const scheduledDir = path.join(root, "src", "content", "blog-scheduled");
+  const scheduledImageDir = path.join(root, "src", "content", "blog-scheduled-images");
   fs.mkdirSync(scheduledDir, { recursive: true });
+  fs.mkdirSync(scheduledImageDir, { recursive: true });
+  fs.mkdirSync(path.join(root, ".github"), { recursive: true });
   for (const [file, date] of posts) {
     fs.writeFileSync(
       path.join(scheduledDir, file),
       `---\ntitle: Test\ndate: ${date}\n---\n\nTest article.\n`,
     );
+    fs.writeFileSync(path.join(scheduledImageDir, file.replace(/\.mdx$/, ".jpg")), "image");
   }
+  const schedule = posts.map(([file, date]) => {
+    const article = fs.readFileSync(path.join(scheduledDir, file));
+    return {
+      slug: file.replace(/\.mdx$/, ""),
+      date,
+      status: "scheduled",
+      sha256: createHash("sha256").update(article).digest("hex"),
+    };
+  });
+  fs.writeFileSync(
+    path.join(root, ".github", "blog-schedule.json"),
+    JSON.stringify(schedule),
+  );
   return root;
 }
 
@@ -34,8 +52,10 @@ test("publishes only posts due on or before the supplied date", () => {
   ]);
   const due = publishDuePosts({ root, today: "2026-08-29", log() {} });
 
-  assert.deepEqual(due, [{ file: "first.mdx", date: "2026-08-29" }]);
+  assert.equal(due.length, 1);
+  assert.equal(due[0].file, "first.mdx");
   assert.ok(fs.existsSync(path.join(root, "src/content/blog/first.mdx")));
+  assert.ok(fs.existsSync(path.join(root, "public/images/blog/first.jpg")));
   assert.ok(fs.existsSync(path.join(root, "src/content/blog-scheduled/second.mdx")));
 });
 
@@ -46,11 +66,12 @@ test("catches up all overdue posts in chronological order", () => {
   ]);
   const due = publishDuePosts({ root, today: "2026-09-10", dryRun: true, log() {} });
 
-  assert.deepEqual(due, [
+  assert.deepEqual(due.map(({ file, date }) => ({ file, date })), [
     { file: "earlier.mdx", date: "2026-08-29" },
     { file: "later.mdx", date: "2026-09-04" },
   ]);
   assert.ok(fs.existsSync(path.join(root, "src/content/blog-scheduled/earlier.mdx")));
+  assert.ok(fs.existsSync(path.join(root, "src/content/blog-scheduled-images/earlier.jpg")));
 });
 
 test("refuses to overwrite an existing live article", () => {
@@ -77,4 +98,15 @@ test("rejects malformed frontmatter dates", () => {
   const file = path.join(root, "src", "content", "blog-scheduled", "invalid.mdx");
 
   assert.throws(() => readPublicationDate(file), /no valid YYYY-MM-DD date/);
+});
+
+test("rejects an article changed after release-manifest approval", () => {
+  const root = makeFixture([["changed.mdx", "2026-08-29"]]);
+  const file = path.join(root, "src", "content", "blog-scheduled", "changed.mdx");
+  fs.appendFileSync(file, "\nUnreviewed change.\n");
+
+  assert.throws(
+    () => publishDuePosts({ root, today: "2026-08-29", log() {} }),
+    /changed after it was added to the release manifest/,
+  );
 });

@@ -28,18 +28,51 @@ jobs:
         with:
           node-version: "24"
 
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Validate the complete publication schedule
+        run: npm test
+
       - name: Publish all due scheduled posts
         run: node .github/scripts/publish-scheduled-blog.mjs
 
+      - name: Validate published content and production build
+        run: |
+          npm test
+          npm run build
+
       - name: Commit and push due blog posts
+        id: commit
         run: |
           git config user.name "Dr. Aditya Davhale Blog Bot"
           git config user.email "dr.adityadavhale@gmail.com"
-          git add src/content/blog/ src/content/blog-scheduled/
+          git add src/content/blog/ src/content/blog-scheduled/ src/content/blog-scheduled-images/ public/images/blog/
           if git diff --cached --quiet; then
             echo "No scheduled post is due today."
+            echo "published_slug=" >> "$GITHUB_OUTPUT"
           else
+            published_file=$(git diff --cached --name-only --diff-filter=ACMR -- src/content/blog/ | head -n 1)
+            published_slug=$(basename "$published_file" .mdx)
             git commit -m "feat(blog): publish scheduled SEO article"
             git pull --rebase origin master
             git push origin HEAD:master
+            echo "published_slug=$published_slug" >> "$GITHUB_OUTPUT"
           fi
+
+      - name: Verify the published article is live
+        if: steps.commit.outputs.published_slug != ''
+        env:
+          PUBLISHED_SLUG: ${{ steps.commit.outputs.published_slug }}
+        run: |
+          article_url="https://www.dradityamd.com/blog/$PUBLISHED_SLUG"
+          for attempt in {1..20}; do
+            if curl --fail --silent --show-error "$article_url" > /dev/null; then
+              echo "Verified live article: $article_url"
+              exit 0
+            fi
+            echo "Waiting for deployment ($attempt/20)..."
+            sleep 15
+          done
+          echo "::error::The article was committed but did not become live within five minutes: $article_url"
+          exit 1
