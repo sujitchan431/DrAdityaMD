@@ -5,7 +5,7 @@ import { Container } from "@/components/layout/Container";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { BlogCard } from "@/components/shared/BlogCard";
 import { Pagination } from "@/components/shared/Pagination";
-import { NewsletterSignup } from "@/components/shared/NewsletterSignup";
+
 import { getAllPosts, searchPosts, getPostsByTag } from "@/lib/blog";
 import { POSTS_PER_PAGE } from "@/lib/constants";
 
@@ -105,10 +105,6 @@ export default async function BlogPage({
           />
         </div>
       )}
-
-      <div className="mt-16">
-        <NewsletterSignup />
-      </div>
     </Container>
   );
 }

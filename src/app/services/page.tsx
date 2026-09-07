@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Container } from "@/components/layout/Container";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { ServiceCard } from "@/components/shared/ServiceCard";
-import { FAQAccordion } from "@/components/shared/FAQAccordion";
+
 import { CTASection } from "@/components/shared/CTASection";
 import { services } from "@/content/services";
 
@@ -41,7 +41,7 @@ export default function ServicesPage() {
             title={service.title}
             description={service.shortDescription}
             icon={service.icon}
-            href={`/appointment`}
+            href={`/services/${service.id}`}
           />
         ))}
       </div>

@@ -25,7 +25,7 @@ export function ServicesPreview() {
               title={service.title}
               description={service.shortDescription}
               icon={service.icon}
-              href={`/services#${service.id}`}
+              href={`/services/${service.id}`}
             />
           ))}
         </div>

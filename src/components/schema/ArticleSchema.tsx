@@ -7,6 +7,7 @@ interface ArticleSchemaProps {
   datePublished: string;
   dateModified?: string;
   lastReviewed?: string;
+  reviewedBy?: string;
   slug: string;
   keywords?: string[];
   wordCount?: number;
@@ -21,6 +22,7 @@ export function ArticleSchema({
   datePublished,
   dateModified,
   lastReviewed,
+  reviewedBy,
   slug,
   keywords,
   wordCount,
@@ -53,14 +55,14 @@ export function ArticleSchema({
     image: imageUrl,
     datePublished,
     dateModified: dateModified || datePublished,
-    lastReviewed: lastReviewed || dateModified || datePublished,
+    ...(lastReviewed && reviewedBy ? { lastReviewed, reviewedBy: { "@type": "Person", name: reviewedBy } } : {}),
     inLanguage: "en-IN",
     isFamilyFriendly: true,
     ...(keywords && keywords.length ? { keywords: keywords.join(", ") } : {}),
     ...(articleSection ? { articleSection } : {}),
     ...(wordCount ? { wordCount } : {}),
     author,
-    reviewedBy: author,
+
     publisher: {
       "@type": "Organization",
       name: siteConfig.name,

@@ -9,7 +9,7 @@ export const siteConfig = {
     "Dr. Aditya Davhale is an Assistant Professor and Consultant Physician (Internal Medicine) based in Navi Mumbai, with expertise in diabetes, hypertension, fever, infectious diseases, ICU & critical care, and chronic lifestyle conditions.",
   fullBio: `Dr. Aditya Davhale is an Assistant Professor and Consultant Physician specialising in Internal Medicine, based in Navi Mumbai. He is known for evidence-based, patient-centred care across adult medicine, diabetes, hypertension, fever, infectious diseases, and ICU & critical care.
 
-He completed his MBBS from TN Medical College & BYL Nair Hospital, Mumbai, and his MD in General Medicine from Dr. D. Y. Patil Medical College, Navi Mumbai. He has cleared his DNB (General Medicine) theory examinations and is further expanding his clinical depth through a Fellowship in 2D Echocardiography.
+He completed his MBBS from TN Medical College & BYL Nair Hospital, Mumbai, and his MD in General Medicine from Dr. D. Y. Patil Medical College, Navi Mumbai. He has completed his DNB (General Medicine) qualification and is further expanding his clinical depth through a Fellowship in 2D Echocardiography.
 
 He currently serves as Assistant Professor in the Department of General Medicine at Dr. D. Y. Patil University School of Medicine and consults at leading hospitals across Navi Mumbai, including Apollo Hospitals (Belapur), Seawoods Hospital, Terna Specialty Hospital (Nerul), MPCT Hospital (Sanpada), and New Era Hospital (Vashi).
 
@@ -140,11 +140,6 @@ His approach combines compassionate consultation, evidence-based medicine, preve
   ],
 
   social: {
-    linkedin: "https://linkedin.com/", // ⚠️ Replace with doctor profile
-    facebook: "https://facebook.com/", // ⚠️ Replace with practice page URL
-    twitter: "https://twitter.com/", // ⚠️ Replace with practice profile
-    youtube: "https://youtube.com/",
-    practo: "https://practo.com/",
     whatsapp: "https://wa.me/919960628111",
   },
 

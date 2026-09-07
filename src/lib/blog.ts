@@ -1,3 +1,4 @@
+import { getVerifiedReview } from "@/lib/article-review";
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
@@ -16,7 +17,8 @@ export interface PostMeta {
   /** ISO date of last meaningful update — used for freshness signals & schema. */
   dateModified: string;
   /** ISO date the medical content was last reviewed (E-E-A-T). */
-  lastReviewed: string;
+  lastReviewed?: string;
+  reviewedBy?: string;
   author: string;
   excerpt: string;
   /** Optional SEO <title>, distinct from the on-page H1. Falls back to title. */
@@ -69,7 +71,7 @@ function parsePost(filePath: string, slug: string): Post | null {
       title: data.title,
       date: data.date,
       dateModified: data.dateModified || data.date,
-      lastReviewed: data.lastReviewed || data.dateModified || data.date,
+      ...getVerifiedReview(data),
       author: data.author || "Dr. Aditya Davhale",
       excerpt: data.excerpt || "",
       metaTitle: data.metaTitle || undefined,

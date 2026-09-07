@@ -1,3 +1,4 @@
+import { services } from "@/content/services";
 import type { MetadataRoute } from "next";
 import { getAllPosts } from "@/lib/blog";
 import { SITE_URL } from "@/lib/constants";
@@ -24,5 +25,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  return [...staticRoutes, ...blogRoutes];
+  return [...staticRoutes, ...services.map((service) => ({ url: `${SITE_URL}/services/${service.id}`, changeFrequency: "monthly" as const, priority: 0.8 })), ...blogRoutes];
 }

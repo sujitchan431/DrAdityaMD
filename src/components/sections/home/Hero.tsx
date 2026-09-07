@@ -38,6 +38,16 @@ export function Hero() {
                 Read Health Articles
               </Link>
             </div>
+            <div className="mt-6 rounded-xl border border-primary-100 bg-white p-4 text-sm text-gray-700">
+              <p className="font-semibold">{siteConfig.clinic.name}</p>
+              <p>{siteConfig.clinic.address}</p>
+              <p className="mt-2">{siteConfig.clinic.hours.days} · {siteConfig.clinic.hours.time}</p>
+              <p>Consultation: {siteConfig.clinic.consultationFee} · Slot confirmed by the clinic</p>
+              <div className="mt-3 flex flex-wrap gap-3">
+                <a className="rounded-lg bg-primary-700 px-4 py-3 font-semibold text-white" href={`tel:${siteConfig.clinic.phoneRaw}`}>Call the clinic</a>
+                <a className="rounded-lg border border-primary-700 px-4 py-3 font-semibold text-primary-700" href={siteConfig.social.whatsapp} target="_blank" rel="noopener noreferrer">Request on WhatsApp</a>
+              </div>
+            </div>
             <div className="mt-6 flex flex-wrap items-center gap-4 text-sm text-gray-500">
               <span className="flex items-center gap-1">
                 <svg className="h-5 w-5 text-accent-500" fill="currentColor" viewBox="0 0 20 20">
@@ -76,7 +86,7 @@ export function Hero() {
                 alt={siteConfig.name}
                 fill
                 className="object-cover"
-                priority
+                preload
                 sizes="(max-width: 640px) 256px, (max-width: 1024px) 320px, 384px"
               />
             </div>

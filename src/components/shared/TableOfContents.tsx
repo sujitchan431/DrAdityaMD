@@ -34,7 +34,7 @@ export function TableOfContents({ headings }: { headings: Heading[] }) {
   if (headings.length === 0) return null;
 
   return (
-    <nav className="rounded-xl border border-gray-200 bg-medical-50 p-4">
+    <nav aria-label="Article contents" className="rounded-xl border border-gray-200 bg-medical-50 p-4">
       <h4 className="mb-3 text-sm font-semibold uppercase tracking-wider text-gray-500">
         Table of Contents
       </h4>
@@ -46,12 +46,6 @@ export function TableOfContents({ headings }: { headings: Heading[] }) {
           >
             <a
               href={`#${heading.id}`}
-              onClick={(e) => {
-                e.preventDefault();
-                document
-                  .getElementById(heading.id)
-                  ?.scrollIntoView({ behavior: "smooth" });
-              }}
               className={`block rounded px-2 py-1 text-sm transition-colors ${
                 activeId === heading.id
                   ? "bg-primary-50 text-primary-700 font-medium"

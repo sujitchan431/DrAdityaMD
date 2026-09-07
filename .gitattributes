@@ -1,0 +1,3 @@
+# Keep approved article digests stable on Windows and Linux.
+src/content/blog/*.mdx text eol=lf
+src/content/blog-scheduled/*.mdx text eol=lf

@@ -402,7 +402,7 @@ title: "TITLE (compelling, contains primary keyword, max 60 characters)"
 metaTitle: "SEO TITLE for the browser tab (max 60 chars, primary keyword near the front)"
 date: "${today}"
 dateModified: "${today}"
-lastReviewed: "${today}"
+reviewVerified: false
 author: "Dr. Aditya Davhale"
 excerpt: "1-2 sentence summary, 120-155 chars, includes primary keyword"
 description: "Meta description for Google, 150-160 chars, primary keyword + soft CTA"

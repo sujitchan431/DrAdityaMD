@@ -1,96 +1,33 @@
 "use client";
-
-import { useState } from "react";
+import { useRef } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
 import { siteConfig } from "@/content/site-config";
 
 export function MobileNav() {
-  const [open, setOpen] = useState(false);
-
+  const dialog = useRef<HTMLDialogElement>(null);
+  const trigger = useRef<HTMLButtonElement>(null);
+  const previousOverflow = useRef("");
+  const close = () => dialog.current?.close();
   return (
     <div className="lg:hidden">
-      <button
-        onClick={() => setOpen(!open)}
-        className="flex h-10 w-10 items-center justify-center rounded-lg text-gray-600 hover:bg-gray-100"
-        aria-label={open ? "Close menu" : "Open menu"}
-        aria-expanded={open}
-      >
-        <svg
-          className="h-5 w-5"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          {open ? (
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M6 18L18 6M6 6l12 12"
-            />
-          ) : (
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4 6h16M4 12h16M4 18h16"
-            />
-          )}
-        </svg>
+      <button ref={trigger} type="button" aria-label="Open menu" aria-haspopup="dialog" aria-controls="mobile-menu"
+        className="flex h-11 w-11 items-center justify-center rounded-lg text-gray-700 hover:bg-gray-100"
+        onClick={() => { previousOverflow.current = document.body.style.overflow; dialog.current?.showModal(); document.body.style.overflow = "hidden"; }}>
+        <svg aria-hidden="true" className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeWidth={2} strokeLinecap="round" d="M4 6h16M4 12h16M4 18h16" /></svg>
       </button>
-
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0, x: "100%" }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: "100%" }}
-            transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="fixed inset-y-0 right-0 z-50 w-72 bg-white shadow-2xl"
-          >
-            <div className="flex h-16 items-center justify-between px-4 border-b border-gray-100">
-              <span className="font-bold text-medical-900">{siteConfig.name}</span>
-              <button
-                onClick={() => setOpen(false)}
-                className="h-10 w-10 flex items-center justify-center rounded-lg text-gray-600 hover:bg-gray-100"
-                aria-label="Close menu"
-              >
-                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-            <nav className="flex flex-col p-4">
-              {siteConfig.navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setOpen(false)}
-                  className="rounded-lg px-4 py-3 text-sm font-medium text-gray-700 transition-colors hover:bg-primary-50 hover:text-primary-600"
-                >
-                  {link.label}
-                </Link>
-              ))}
-              <hr className="my-3" />
-              <Link
-                href="/appointment"
-                onClick={() => setOpen(false)}
-                className="rounded-lg bg-primary-600 px-4 py-3 text-center text-sm font-semibold text-white shadow-sm transition-all hover:bg-primary-700"
-              >
-                Book Appointment
-              </Link>
-            </nav>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {open && (
-        <div
-          className="fixed inset-0 z-40 bg-black/30"
-          onClick={() => setOpen(false)}
-        />
-      )}
+      <dialog ref={dialog} id="mobile-menu" aria-labelledby="mobile-menu-title"
+        className="fixed inset-y-0 left-auto right-0 m-0 h-dvh max-h-none w-80 max-w-[90vw] bg-white p-0 shadow-2xl backdrop:bg-black/40"
+        onClose={() => { document.body.style.overflow = previousOverflow.current; trigger.current?.focus(); }}
+        onClick={(event) => { if (event.target === event.currentTarget) { const rect = event.currentTarget.getBoundingClientRect(); if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) close(); } }}>
+        <div className="flex items-center justify-between gap-2 border-b border-gray-100 p-4">
+          <span id="mobile-menu-title" className="font-bold text-medical-900">{siteConfig.name}</span>
+          <button type="button" onClick={close} aria-label="Close menu" className="h-11 w-11 shrink-0 rounded-lg text-2xl text-gray-700 hover:bg-gray-100">×</button>
+        </div>
+        <nav aria-label="Mobile navigation" className="flex flex-col gap-1 p-4">
+          {siteConfig.navLinks.map((link) => <Link key={link.href} href={link.href} onClick={close} className="rounded-lg px-4 py-3 text-sm font-medium text-gray-700 hover:bg-primary-50">{link.label}</Link>)}
+          <Link href="/appointment" onClick={close} className="mt-3 rounded-lg bg-primary-700 px-4 py-3 text-center font-semibold text-white">Book Appointment</Link>
+        </nav>
+      </dialog>
     </div>
   );
 }

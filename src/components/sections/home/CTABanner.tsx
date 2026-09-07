@@ -1,5 +1,5 @@
 import { Container } from "@/components/layout/Container";
-import { CTASection } from "@/components/shared/CTASection";
+
 import { siteConfig } from "@/content/site-config";
 
 export function CTABanner() {

@@ -7,7 +7,7 @@ import { ReadingTime } from "@/components/shared/ReadingTime";
 import { AuthorBox } from "@/components/shared/AuthorBox";
 import { TableOfContents } from "@/components/shared/TableOfContents";
 import { ShareButtons } from "@/components/shared/ShareButtons";
-import { NewsletterSignup } from "@/components/shared/NewsletterSignup";
+
 import { BlogCard } from "@/components/shared/BlogCard";
 import { MedicalDisclaimer } from "@/components/mdx/MedicalDisclaimer";
 import { ArticleSchema } from "@/components/schema/ArticleSchema";
@@ -90,6 +90,7 @@ export default async function BlogPostPage({ params }: Props) {
         datePublished={post.date}
         dateModified={post.dateModified}
         lastReviewed={post.lastReviewed}
+        reviewedBy={post.reviewedBy}
         slug={slug}
         keywords={post.keywords}
         wordCount={post.wordCount}
@@ -124,6 +125,9 @@ export default async function BlogPostPage({ params }: Props) {
               <span>·</span>
               <ReadingTime minutes={post.readingTime} />
             </div>
+            {post.lastReviewed && post.reviewedBy && (
+              <p className="mt-3 text-sm text-gray-600">Medically reviewed by {post.reviewedBy} on <time dateTime={post.lastReviewed}>{formatDate(post.lastReviewed)}</time>.</p>
+            )}
           </header>
 
           {post.image && (
@@ -139,6 +143,12 @@ export default async function BlogPostPage({ params }: Props) {
             </div>
           )}
 
+          {headings.length > 0 && (
+            <details className="mb-6 rounded-xl border border-gray-200 p-4 lg:hidden">
+              <summary className="cursor-pointer font-semibold text-medical-900">In this article</summary>
+              <div className="mt-3"><TableOfContents headings={headings} /></div>
+            </details>
+          )}
           <div className="flex gap-10">
             {/* Sidebar with TOC */}
             {headings.length > 0 && (
@@ -187,10 +197,6 @@ export default async function BlogPostPage({ params }: Props) {
               </div>
             </div>
           )}
-
-          <div className="mt-16">
-            <NewsletterSignup />
-          </div>
         </div>
       </Container>
     </>
