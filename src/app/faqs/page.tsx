@@ -54,7 +54,7 @@ export default function FAQsPage() {
             <CTASection
               heading="Still Have Questions?"
               body="We are happy to help. Contact us or book an appointment to discuss your health concerns with Dr. Aditya Davhale."
-              primaryCTA={{ label: "Book Appointment", href: "/appointment" }}
+              primaryCTA={{ label: "Request Appointment", href: "/appointment" }}
               variant="light"
             />
           </div>

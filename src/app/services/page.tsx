@@ -103,7 +103,7 @@ export default function ServicesPage() {
         <CTASection
           heading="Need Expert Medical Care?"
           body="Book a consultation with Dr. Aditya Davhale at Seawoods Hospital, Navi Mumbai."
-          primaryCTA={{ label: "Book Appointment", href: "/appointment" }}
+          primaryCTA={{ label: "Request Appointment", href: "/appointment" }}
           variant="light"
         />
       </div>

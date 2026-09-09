@@ -7,14 +7,14 @@ interface ServiceCardProps {
   href: string;
 }
 
-export function ServiceCard({ title, description, icon, href }: ServiceCardProps) {
+export function ServiceCard({ title, description, href }: ServiceCardProps) {
   return (
     <Link
       href={href}
       className="group rounded-xl border border-gray-100 bg-white p-6 shadow-sm transition-all hover:shadow-md hover:border-primary-200"
     >
       <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary-50 text-2xl">
-        {icon}
+        <svg aria-hidden="true" className="h-6 w-6 text-primary-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6V3Z" /></svg>
       </div>
       <h3 className="text-lg font-semibold text-medical-900 group-hover:text-primary-600 transition-colors">
         {title}

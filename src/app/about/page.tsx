@@ -148,7 +148,7 @@ export default function AboutPage() {
           <CTASection
             heading="Schedule a Consultation"
             body="Experience evidence-based internal medicine care tailored to your health needs."
-            primaryCTA={{ label: "Book Appointment", href: "/appointment" }}
+            primaryCTA={{ label: "Request Appointment", href: "/appointment" }}
             variant="light"
           />
         </div>

@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { MedicalOrganizationSchema } from "@/components/schema/MedicalOrganization";
 import { Hero } from "@/components/sections/home/Hero";
-import { StatsSection } from "@/components/sections/home/StatsSection";
+import { ClinicStrip, MeetDoctor, VisitGuide, PatientQuestionsAndArticles } from "@/components/sections/home/PatientGuide";
 import { ServicesPreview } from "@/components/sections/home/ServicesPreview";
-import { TestimonialsSection } from "@/components/sections/home/TestimonialsSection";
 import { CTABanner } from "@/components/sections/home/CTABanner";
 
 export const metadata: Metadata = {
@@ -18,9 +17,11 @@ export default function HomePage() {
     <>
       <MedicalOrganizationSchema />
       <Hero />
-      <StatsSection />
+      <ClinicStrip />
       <ServicesPreview />
-      <TestimonialsSection />
+      <MeetDoctor />
+      <VisitGuide />
+      <PatientQuestionsAndArticles />
       <CTABanner />
     </>
   );

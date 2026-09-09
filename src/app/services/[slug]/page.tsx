@@ -60,7 +60,7 @@ export default async function ServicePage({ params }: Props) {
         <ul className="mt-4 list-disc space-y-2 pl-5 text-gray-700">{service.conditions.map((condition) => <li key={condition}>{condition}</li>)}</ul>
       </section>
       <section className="mt-10">
-        <h2 className="text-2xl font-bold">Preparing for your visit</h2>
+        <h2 className="text-2xl font-bold">What to expect at your consultation</h2><p className="mt-4 leading-relaxed text-gray-600">Discuss your symptoms, medical history and current medicines with the doctor. Your assessment will guide whether tests, treatment changes or follow-up are appropriate. You can ask questions about the plan before you leave.</p><h2 className="mt-8 text-2xl font-bold">Preparing for your visit</h2>
         <p className="mt-4 leading-relaxed text-gray-600">Bring your recent reports and prescriptions, along with a list of concerns and questions. The consultation is an opportunity to discuss your history, current treatment, and next steps with Dr. Aditya Davhale.</p>
         <p className="mt-4 text-gray-600">{siteConfig.clinic.address}<br />{siteConfig.clinic.hours.days}: {siteConfig.clinic.hours.time}<br />Listed consultation fee: {siteConfig.clinic.consultationFee}. Appointments are confirmed by the clinic.</p>
       </section>

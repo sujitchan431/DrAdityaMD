@@ -25,7 +25,7 @@ export function MobileNav() {
         </div>
         <nav aria-label="Mobile navigation" className="flex flex-col gap-1 p-4">
           {siteConfig.navLinks.map((link) => <Link key={link.href} href={link.href} onClick={close} className="rounded-lg px-4 py-3 text-sm font-medium text-gray-700 hover:bg-primary-50">{link.label}</Link>)}
-          <Link href="/appointment" onClick={close} className="mt-3 rounded-lg bg-primary-700 px-4 py-3 text-center font-semibold text-white">Book Appointment</Link>
+          <Link href="/appointment" onClick={close} className="mt-3 rounded-lg bg-primary-700 px-4 py-3 text-center font-semibold text-white">Request Appointment</Link>
         </nav>
       </dialog>
     </div>

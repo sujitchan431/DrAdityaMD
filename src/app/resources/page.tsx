@@ -67,7 +67,7 @@ export default function ResourcesPage() {
         <CTASection
           heading="Want Personalized Medical Guidance?"
           body="Educational resources are a great start, but nothing replaces a one-on-one consultation with a qualified physician."
-          primaryCTA={{ label: "Book Appointment", href: "/appointment" }}
+          primaryCTA={{ label: "Request Appointment", href: "/appointment" }}
           variant="light"
         />
       </div>

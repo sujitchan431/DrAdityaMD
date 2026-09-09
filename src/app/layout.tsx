@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import "./globals.css";
+import { MobileBookingBar } from "@/components/layout/MobileBookingBar";
+import { IntentAnalytics } from "@/components/layout/IntentAnalytics";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -44,11 +46,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} h-full antialiased`}>
-      <body className="flex min-h-full flex-col bg-white text-medical-900">
+      <body className="flex min-h-full flex-col pb-[calc(5rem+env(safe-area-inset-bottom))] lg:pb-0 bg-white text-medical-900">
         <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:rounded-lg focus:bg-white focus:p-4 focus:text-primary-700 focus:shadow-lg">Skip to content</a>
         <Header />
         <main id="main-content" tabIndex={-1} className="flex-1">{children}</main>
         <Footer />
+        <MobileBookingBar />
+        <IntentAnalytics />
       </body>
     </html>
   );

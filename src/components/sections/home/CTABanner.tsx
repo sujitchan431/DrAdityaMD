@@ -4,11 +4,11 @@ import { siteConfig } from "@/content/site-config";
 
 export function CTABanner() {
   return (
-    <section className="bg-primary-600 py-16">
+    <section className="bg-primary-900 py-16">
       <Container>
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="text-3xl font-bold text-white sm:text-4xl">
-            Ready to Take Control of Your Health?
+            Let’s make time for your health.
           </h2>
           <p className="mt-4 text-lg text-primary-100">
             Book a consultation with {siteConfig.name} at Seawoods Hospital,
@@ -20,7 +20,7 @@ export function CTABanner() {
               href="/appointment"
               className="rounded-lg bg-white px-6 py-3 text-sm font-semibold text-primary-600 shadow-sm transition-all hover:bg-primary-50 hover:shadow-md"
             >
-              Book Appointment
+              Request Appointment
             </a>
             <a
               href={siteConfig.social.whatsapp}

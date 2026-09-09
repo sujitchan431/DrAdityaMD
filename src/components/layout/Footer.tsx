@@ -59,7 +59,7 @@ export function Footer() {
                   href={siteConfig.social.whatsapp}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-medium text-[#1ebe5b] transition-colors hover:underline"
+                  className="font-medium text-green-700 transition-colors hover:underline"
                 >
                   WhatsApp Appointment
                 </a>
@@ -97,7 +97,7 @@ export function Footer() {
                 href="/appointment"
                 className="text-sm text-gray-600 transition-colors hover:text-primary-600"
               >
-                Book Appointment
+                Request Appointment
               </Link>
             </nav>
           </div>

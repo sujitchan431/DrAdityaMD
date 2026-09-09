@@ -44,7 +44,7 @@ export function ClinicInfo() {
                 href={siteConfig.social.whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-medium text-[#1ebe5b] transition-colors hover:underline"
+                className="font-medium text-green-700 transition-colors hover:underline"
               >
                 Chat on WhatsApp
               </a>
@@ -63,6 +63,14 @@ export function ClinicInfo() {
       </div>
 
       <GoogleMap embedUrl={siteConfig.clinic.googleMapsEmbedUrl} />
+      <a
+        href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${siteConfig.clinic.name}, ${siteConfig.clinic.address}`)}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block rounded-xl border border-primary-700 px-5 py-3 text-center font-semibold text-primary-700 hover:bg-primary-50"
+      >
+        Open clinic address in Google Maps ↗
+      </a>
 
       <div className="rounded-xl border border-amber-200 bg-amber-50 p-5">
         <div className="flex items-start gap-3">
